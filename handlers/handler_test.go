@@ -10,12 +10,10 @@ import (
 )
 
 func TestRenderJSON(t *testing.T) {
-	req, err := http.NewRequest("GET", "/render", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	req, _ := http.NewRequest("GET", "/render", nil)
 
 	recorder := httptest.NewRecorder()
+
 	handler := func(rw http.ResponseWriter, req *http.Request) {
 		RenderJSON(rw, http.StatusOK, "ok")
 	}
@@ -36,12 +34,10 @@ func TestRenderJSON(t *testing.T) {
 }
 
 func TestRenderError(t *testing.T) {
-	req, err := http.NewRequest("GET", "/render", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	req, _ := http.NewRequest("GET", "/render", nil)
 
 	recorder := httptest.NewRecorder()
+
 	handler := func(rw http.ResponseWriter, req *http.Request) {
 		RenderError(rw, http.StatusBadRequest, "error")
 	}

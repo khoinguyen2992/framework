@@ -8,10 +8,7 @@ import (
 )
 
 func TestHelloHandler(t *testing.T) {
-	req, err := http.NewRequest("GET", "/render", nil)
-	if err != nil {
-		t.Fatal(err)
-	}
+	req, _ := http.NewRequest("GET", "/render", nil)
 
 	recorder := httptest.NewRecorder()
 
