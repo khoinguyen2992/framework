@@ -8,6 +8,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/Sirupsen/logrus"
 )
 
 type mockSuccessUserRepository struct{}
@@ -35,7 +37,7 @@ func TestCreateUserHandler(t *testing.T) {
 
 	recorder := httptest.NewRecorder()
 
-	handler := CreateUserHandler{&mockSuccessUserRepository{}}
+	handler := CreateUserHandler{&mockSuccessUserRepository{}, logrus.New()}
 	handler.ServeHTTP(recorder, req)
 
 	if recorder.Code != http.StatusCreated {
@@ -70,7 +72,7 @@ func TestCreateUserWhenRequestIsInvalid(t *testing.T) {
 
 	recorder := httptest.NewRecorder()
 
-	handler := CreateUserHandler{&mockSuccessUserRepository{}}
+	handler := CreateUserHandler{&mockSuccessUserRepository{}, logrus.New()}
 	handler.ServeHTTP(recorder, req)
 
 	if recorder.Code != http.StatusBadRequest {
@@ -98,7 +100,7 @@ func TestCreateUserWhenDatabaseHasProblem(t *testing.T) {
 
 	recorder := httptest.NewRecorder()
 
-	handler := CreateUserHandler{&mockFailUserRepository{}}
+	handler := CreateUserHandler{&mockFailUserRepository{}, logrus.New()}
 	handler.ServeHTTP(recorder, req)
 
 	if recorder.Code != http.StatusInternalServerError {
