@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/mholt/binding"
 )
 
 func TestRenderJSON(t *testing.T) {
@@ -56,5 +58,25 @@ func TestRenderError(t *testing.T) {
 
 	if string(recorder.Body.Bytes()) != string(expectedData) {
 		t.Errorf("Expected: %s, got: %s", string(expectedData), string(recorder.Body.Bytes()))
+	}
+}
+
+func TestGetErrors(t *testing.T) {
+	errs := Errors{binding.Errors{
+		binding.Error{
+			FieldNames: []string{"test"},
+			Message:    "Invalid",
+		},
+		binding.Error{
+			FieldNames: []string{"test"},
+			Message:    "Required",
+		},
+	}}
+
+	expected := "test invalid, test required"
+
+	output := errs.GetErrors()
+	if output != expected {
+		t.Errorf("Expected: %s, got: %s", expected, output)
 	}
 }
