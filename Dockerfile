@@ -8,6 +8,6 @@ COPY ./Godeps $APP_HOME/Godeps
 RUN godep restore
 RUN go get bitbucket.org/liamstask/goose/cmd/goose
 COPY . $APP_HOME
-RUN chmod 775 ./migrate_db.sh
+RUN chmod 775 ./migrate_db.sh ./test.sh
 EXPOSE 8080
 CMD ["/bin/sh", "./docker-start.sh"]
