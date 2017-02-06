@@ -4,6 +4,9 @@ import (
 	"framework/repositories"
 	"framework/routers"
 	"net/http"
+
+	negronilogrus "github.com/meatballhat/negroni-logrus"
+	"github.com/urfave/negroni"
 )
 
 func main() {
@@ -14,5 +17,9 @@ func main() {
 
 	router := routers.NewRouter()
 
-	http.ListenAndServe(":8080", router)
+	n := negroni.New()
+	n.Use(negronilogrus.NewMiddleware())
+	n.UseHandler(router)
+
+	http.ListenAndServe(":8080", n)
 }

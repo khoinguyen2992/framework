@@ -3,14 +3,17 @@ package users
 import (
 	"framework/forms"
 	"framework/handlers"
+	"framework/logs"
 	"framework/models"
+	"framework/repositories"
 	"net/http"
 
 	"github.com/mholt/binding"
 )
 
 type CreateUserHandler struct {
-	UserRepo UserRepository
+	UserRepo repositories.UserRepository
+	Logger   logs.Logger
 }
 
 func (handler CreateUserHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
@@ -24,6 +27,7 @@ func (handler CreateUserHandler) ServeHTTP(rw http.ResponseWriter, req *http.Req
 
 	user := models.User(*createUserForm)
 	if err := handler.UserRepo.Create(&user); err != nil {
+		handler.Logger.Error(err.Error())
 		handlers.RenderError(rw, http.StatusInternalServerError, err.Error())
 		return
 	}

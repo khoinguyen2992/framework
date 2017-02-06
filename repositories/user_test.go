@@ -6,7 +6,7 @@ import (
 )
 
 func TestCreateUser(t *testing.T) {
-	userRepo := UserRepository{}
+	userRepo := UserRepositoryImpl{}
 	user := models.User{
 		Email: "test@example.com",
 	}
