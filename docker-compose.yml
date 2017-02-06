@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:9.6.1-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=framework
+
+  app:
+    container_name: app
+    environment:
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_SSL_MODE=disable
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=framework
+    ports:
+      - "8080:8080"
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    volumes:
+      - "./:/go/src/framework"
+    depends_on:
+      - postgres
+    links:
+      - postgres

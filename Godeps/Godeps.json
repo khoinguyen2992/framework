@@ -1,0 +1,30 @@
+{
+	"ImportPath": "framework",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v77",
+	"Deps": [
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.3.0",
+			"Rev": "392c28fe23e1c45ddba891b0320b3b5df220beea"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/gorm",
+			"Comment": "v1.0-114-g7fb9b62",
+			"Rev": "7fb9b62c17d90320e0582a4720db025c1652fd6a"
+		},
+		{
+			"ImportPath": "github.com/jinzhu/inflection",
+			"Rev": "1c35d901db3da928c72a72d8458480cc9ade058f"
+		},
+		{
+			"ImportPath": "github.com/mholt/binding",
+			"Comment": "v0.3.0-5-gda15bc6",
+			"Rev": "da15bc6a25d54500d6d19bf8bcdea7efde27bf0c"
+		},
+		{
+			"ImportPath": "github.com/unrolled/render",
+			"Rev": "50716a0a853771bb36bfce61a45cdefdb98c2e6e"
+		}
+	]
+}
